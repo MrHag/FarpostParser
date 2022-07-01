@@ -1,0 +1,76 @@
+{
+   "data":{
+      "id":"5cd67bc69f3599783315367b",
+      "type":"person",
+      "linked_id":"5cd67bc69f3599783315367b",
+      "name":"\u042d \u041a.",
+      "image":{
+         "id":"5cd67be92756ba14f02d2122",
+         "num":1,
+         "url":"https:\/\/cache3.youla.io\/files\/images\/orig\/5c\/d6\/5cd67be92756ba14f02d2122.jpg"
+      },
+      "phone":null,
+      "social":null,
+      "isOnline":false,
+      "onlineText":"\u041d\u0435 \u0432 \u0441\u0435\u0442\u0438",
+      "online_text_detailed":"\u0421\u0435\u0433\u043e\u0434\u043d\u044f \u0432 14:45",
+      "settings":{
+         "display_chat":true,
+         "locale":0,
+         "vk_chat_messages_enabled":true,
+         "location":{
+            "description":"\u041c\u043e\u0441\u043a\u0432\u0430",
+            "city":"576d0612d53f3d80945f8b5d"
+         },
+         "display_phone":false
+      },
+      "short_name":null,
+      "share_link":"https:\/\/trk.mail.ru\/c\/h8w211?id=5cd67bc69f3599783315367b",
+      "share_text":"\u0420\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0443\u044e \u043e\u0442\u043b\u0438\u0447\u043d\u043e\u0433\u043e \u043f\u0440\u043e\u0434\u0430\u0432\u0446\u0430. \u041e\u0431\u0440\u0430\u0449\u0430\u0442\u044c\u0441\u044f \u0441\u044e\u0434\u0430:",
+      "date_registered":1557560262,
+      "is_blocked":false,
+      "is_shop":false,
+      "is_verified":false,
+      "common_channel":"cmn#5cd67bc69f3599783315367b",
+      "experienced_seller":false,
+      "options":null,
+      "store":null,
+      "verification":{
+         "type":1,
+         "vk_friends_count":318,
+         "required_type":0
+      },
+      "actor_id":null,
+      "b2b_with_manager":false,
+      "blacklist_status":0,
+      "blacklist_cnt":3,
+      "followers_cnt":31,
+      "following_cnt":0,
+      "rating_mark":5,
+      "rating_mark_cnt":82,
+      "orders_cnt":15,
+      "last_auth_date":1647441852,
+      "prods_active_cnt":154,
+      "prods_sold_cnt":487,
+      "orders_seller_cnt":15,
+      "orders_buyer_cnt":0,
+      "contacts_active_cnt":0,
+      "rating_detailed":[
+         {
+            "type":"polite",
+            "mark":5,
+            "title":"\u0412\u0435\u0436\u043b\u0438\u0432\u043e\u0441\u0442\u044c"
+         },
+         {
+            "type":"punctuality",
+            "mark":5,
+            "title":"\u041f\u0443\u043d\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u044c"
+         }
+      ],
+      "subscription_date_added":null,
+      "is_subscribed":false
+   },
+   "status":200,
+   "detail":"Ok",
+   "uri":""
+}

@@ -1,0 +1,37 @@
+https://youla.ru/all/zhenskaya-odezhda?attributes[price][to]=1000000&attributes[price][from]=100000&attributes[delivery][0]=150650
+
+[POST]
+https://api-gw.youla.io/federation/graphql
+
+{
+  "extensions" : {
+      "persistedQuery" : {
+         "sha256Hash" : "bf7a22ef077a537ba99d2fb892ccc0da895c8454ed70358c0c7a18f67c84517f",
+         "version" : 1
+      }
+   },
+   "operationName" : "catalogProductsBoard",
+   "variables" : {
+      "attributes" : [
+         {
+            "from" : 100000,
+            "slug" : "price",
+            "to" : 1000000,
+            "value" : null
+         },
+         {
+            "from" : null,
+            "slug" : "delivery",
+            "to" : null,
+            "value" : [ "1" ]
+         },
+         {
+            "from" : null,
+            "slug" : "categories",
+            "to" : null,
+            "value" : [ "zhenskaya-odezhda" ]
+         }
+      ],
+      "cursor" : "{\"page\":0,\"totalProductsCount\":30,\"dateUpdatedTo\":1651239003}"
+   }
+}

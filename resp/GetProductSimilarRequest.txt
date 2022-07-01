@@ -1,0 +1,1 @@
+https://api.youla.io/api/v1/product/623457283a7e434d13215c11/similars

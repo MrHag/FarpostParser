@@ -1,0 +1,16 @@
+/build
+/dist
+/__pycache__
+
+/parsed
+
+/cetegories.json
+/cities.json
+/citiesid.json
+/config.json
+
+*.exe
+*.db
+*.spec
+
+/*.txt
