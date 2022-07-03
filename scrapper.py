@@ -1,7 +1,7 @@
 from http.server import HTTPServer
 import threading
 from farpost_core import farpost_core
-from youla_config import InvalidConfigException
+from config import InvalidConfigException
 from db import db
 from request_master import request_master
 from web_server import Serv
@@ -36,6 +36,7 @@ try:
 
     print("Connect to database...")
     database = db('database.db', core_type.SQL)
+    resdatabase = db('resdatabase.db', core_type.RESSQL)
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:50.0) Gecko/20100101 Firefox/50.0'}
@@ -43,7 +44,7 @@ try:
 
     print("Start parsing...")
 
-    core = core_type(database, cfg, brw, req_master)
+    core = core_type(database, resdatabase, cfg, brw, req_master)
 
     core.start()
 

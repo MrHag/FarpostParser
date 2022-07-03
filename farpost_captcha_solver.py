@@ -66,16 +66,18 @@ class farpost_captcha_solver(captcha_solver):
                             sleep(0.5)
                     except Exception:
                         pass
-                        
+
                     captcha_id = 0
                     try:
                         print("Waiting for answer")
                         base64_image = brw.execute_script(
-                            'let img = [...document.getElementsByTagName("img")].filter((img)=>{ if(img.offsetParent != null) return img})[0];let canvas = document.createElement("canvas");canvas.width = img.width;canvas.height = img.height;let ctx = canvas.getContext("2d");ctx.drawImage(img, 0, 0);let dataURL = canvas.toDataURL("image/png");return dataURL')         
-                        
-                        solve = self.solver.normal(base64_image, lang="ru")
-                        res = solve["code"]
-                        captcha_id = solve["captchaId"]
+                            'let img = [...document.getElementsByTagName("img")].filter((img)=>{ if(img.offsetParent != null) return img})[0];let canvas = document.createElement("canvas");canvas.width = img.width;canvas.height = img.height;let ctx = canvas.getContext("2d");ctx.drawImage(img, 0, 0);let dataURL = canvas.toDataURL("image/png");return dataURL')
+
+                        # solve = self.solver.normal(base64_image, lang="ru")
+                        # res = solve["code"]
+                        # captcha_id = solve["captchaId"]
+
+                        res = input("Enter: ")
 
                         print("Answer: ", res)
 
@@ -114,9 +116,10 @@ class farpost_captcha_solver(captcha_solver):
                             print("Waiting for answer")
                             base64_image = brw.execute_script(
                                 'return /url\((.*)\)/g.exec(document.getElementsByTagName("style")[0].innerHTML)[1]')
-                            solve = self.solver.normal(base64_image, lang="ru")
-                            res = solve["code"]
-                            captcha_id = solve["captchaId"]
+                            # solve = self.solver.normal(base64_image, lang="ru")
+                            # res = solve["code"]
+                            # captcha_id = solve["captchaId"]
+                            res = input("Enter: ")
                             print("Answer: ", res)
                             brw.execute_script(
                                 f'document.getElementsByTagName("table")[0].children[0].children[0].children[2].children[0].value = "{res}"')
@@ -129,7 +132,6 @@ class farpost_captcha_solver(captcha_solver):
                         sleep(3)
 
                         brw.find_element_by_class_name('bzr-captcha__image')
-
 
                         if captcha_id != 0:
                             self.solver.report(captcha_id, False)

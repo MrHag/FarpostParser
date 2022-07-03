@@ -14,6 +14,8 @@ class db:
     def __init__(self, filename: str, sqls: List[str]):
         self.__filename = filename
         self.__db = sqlite3.connect(self.__filename, check_same_thread=False)
+        cur = self.__db.cursor()
+        cur.execute("pragma journal_mode = TRUNCATE")
         self.__check_and_create(sqls)
 
     def __check_and_create(self, sqls: List[str]):
@@ -70,9 +72,13 @@ class db:
         self.__db.cursor().execute(sql)
         self.confirm()
 
-    def take_objects(self, entity_type: Type[T], sql_conditions: str) -> List[T]:
+    def take_objects(self, entity_type: Type[T], sql_conditions: str = None) -> List[T]:
 
-        sql = f"SELECT * FROM {entity_type.table_name} WHERE {sql_conditions}"
+        sql = f"SELECT * FROM {entity_type.table_name}"
+
+        if sql_conditions is None:
+            sql = f"{sql} WHERE {sql_conditions}"
+
         cur = self.__db.cursor()
 
         cur.execute(sql)
@@ -115,9 +121,14 @@ class db:
 
         cond = ' AND '.join(conditions)
 
-        sql = f"SELECT EXISTS (SELECT 1 FROM {entity_type.table_name} WHERE {cond})"
+        subsql = f"SELECT 1 FROM {entity_type.table_name}"
 
-        #print(f"SQL: {sql}")
+        if len(conditions) == 0:
+            subsql = f"{subsql} WHERE {cond}"
+
+        sql = f"SELECT EXISTS ({subsql})"
+
+        # print(f"SQL: {sql}")
 
         cur = self.__db.cursor()
 
@@ -128,3 +139,36 @@ class db:
         entity = cur.fetchone()
 
         return bool(entity[0])
+
+    def table_empty(self, table_name: str) -> bool:
+
+        sql = f"SELECT EXISTS (SELECT 1 FROM {table_name})"
+
+        cur = self.__db.cursor()
+
+        cur.execute(sql)
+
+        entity: Tuple[int, Any]
+
+        entity = cur.fetchone()
+
+        return not bool(entity[0])
+
+    def delete_object(self, entity_type: Type[T], id: Any = None, sql_conditions: str = None):
+
+        conditions = []
+
+        if id is not None:
+            conditions.append(f"id = \"{id}\"")
+
+        if sql_conditions is not None:
+            conditions.append(sql_conditions)
+
+        cond = ' AND '.join(conditions)
+
+        sql = f"DELETE FROM {entity_type.table_name} WHERE {cond}"
+
+        cur = self.__db.cursor()
+
+        cur.execute(sql)
+        self.confirm()

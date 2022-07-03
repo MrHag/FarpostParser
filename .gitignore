@@ -11,6 +11,7 @@
 
 *.exe
 *.db
+*.db-journal
 *.spec
 
 /*.txt

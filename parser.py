@@ -1,4 +1,4 @@
-from typing import List, TypeVar
+from typing import Callable, Dict, List, TypeVar
 import requests
 from db import db
 from offer import offer
@@ -36,12 +36,12 @@ class parser:
         self._error_handler = error_handler
         self._database = database
 
-    def parse_products(self, exit: exiter = None) -> List[int]:
-        raise NotImplementedError()
-
     T = TypeVar('T', bound=offer)
 
-    def parse_product(self, id: str) -> T:
+    def parse_products(self, map: Callable[[T], None], exit: exiter = None) -> List[int]:
+        raise NotImplementedError()
+
+    def parse_product(self, id: str):
         raise NotImplementedError()
 
     T2 = TypeVar('T2', bound=user)

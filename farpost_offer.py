@@ -6,8 +6,8 @@ from offer import offer
 class farpost_offer(offer):
     views: int
 
-    def __init__(self, id: int, views: int, user_id: int, user_inner_id: str):
-        super().__init__(id, user_id, user_inner_id)
+    def __init__(self, id: int, views: int, user_id: int):
+        super().__init__(id, user_id, "")
         self.views = views
 
     @classmethod

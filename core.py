@@ -11,6 +11,7 @@ from offer import offer
 from parser import parser
 from user import user
 
+
 class core:
 
     config_type = config
@@ -20,16 +21,19 @@ class core:
     parser_type = parser
 
     SQL = []
+    RESSQL = []
 
     database: db
+    resdb: db
     cfg: config_type
     brw: browser
     req_master: request_master
     opt: options_type
     pars: parser_type
 
-    def __init__(self, database: db, cfg: config_type, brw: browser, req_master: request_master):
+    def __init__(self, database: db, resdatabase: db, cfg: config_type, brw: browser, req_master: request_master):
         self.database = database
+        self.resdb = resdatabase
         self.cfg = cfg
         self.brw = brw
         self.req_master = req_master
@@ -52,7 +56,15 @@ class core:
     def init_error_handler(self) -> parser_error_handler:
         raise NotImplementedError()
 
+    def reserve_product(self, offer: offer_type):
+        try:
+            self.resdb.save_object(offer)
+
+        except Exception:
+            pass
+
     def start(self):
+        resdb = self.resdb
         database = self.database
         cfg = self.cfg
 
@@ -63,9 +75,7 @@ class core:
         prse = self.pars
 
         ot = cls.offer_type
-
         ou = cls.user_type
-
         TO = TypeVar('TO', bound=ot)
         TU = TypeVar('TU', bound=ou)
 
@@ -86,8 +96,14 @@ class core:
 
             return usr
 
-        products = prse.parse_products(exit)
-        exit.reset()
+        if not self.resdb.table_empty(cls.offer_type.table_name):
+            print("Get from previous session: ")
+            products = self.resdb.take_objects(cls.offer_type, "")
+            prse.products.update({prod.id: prod for prod in products})
+            products = [prod.id for prod in products]
+        else:
+            products = prse.parse_products(self.reserve_product, exit)
+            exit.reset()
 
         for i, prod_id in enumerate(products):
 
@@ -120,6 +136,7 @@ class core:
                     usr = accept_offer(prod, usr)
 
                 database.save_object(prod)
+
             except ParseError as e:
                 print("ParseError")
                 with open("reqERROR.txt", "w", encoding="utf-8") as f:
@@ -136,3 +153,8 @@ class core:
                     )
                 with open("respERROR.txt", "w", encoding="utf-8") as f:
                     f.write(e.resp.text)
+            finally:
+                try:
+                    resdb.delete_object(cls.offer_type, prod_id)
+                except Exception:
+                    pass
